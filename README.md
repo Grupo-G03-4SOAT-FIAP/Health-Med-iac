@@ -1,3 +1,5 @@
+<img src="https://github.com/Grupo-G03-4SOAT-FIAP/Health-Med-iac/raw/main/docs/img/H-and-M-logo.png" alt="Health&Med" title="Health&Med" align="right" height="60" />
+
 # Health&Med
 ## Infrastructure as code (IaC)
 
