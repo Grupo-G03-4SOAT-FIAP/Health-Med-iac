@@ -42,5 +42,5 @@ module "ecr" {
 # Para obter instruções de como fazer login no Amazon ECR visite a página
 # https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html#cli-authenticate-registry
 # aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ????????????.dkr.ecr.us-east-1.amazonaws.com
-# docker build -t ????????????.dkr.ecr.us-east-1.amazonaws.com/rms:latest .
-# docker push ????????????.dkr.ecr.us-east-1.amazonaws.com/rms:latest
+# docker build -t ????????????.dkr.ecr.us-east-1.amazonaws.com/health-med:latest .
+# docker push ????????????.dkr.ecr.us-east-1.amazonaws.com/health-med:latest

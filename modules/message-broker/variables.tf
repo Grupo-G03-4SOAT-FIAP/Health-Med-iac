@@ -18,5 +18,5 @@ variable "name" {
 variable "secret_name" {
   description = "Friendly name of the new secret."
   type        = string
-  default     = "prod/RMS/SQS"
+  default     = "prod/HealthMed/SQS"
 }

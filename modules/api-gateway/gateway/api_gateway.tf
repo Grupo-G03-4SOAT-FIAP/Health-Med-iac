@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "minha_api" {
-  name        = "rms-bff"
+  name        = "health-med-bff"
   description = "BFF do Restaurant Management System"
 }
 

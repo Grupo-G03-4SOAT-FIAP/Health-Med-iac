@@ -70,7 +70,7 @@ terraform destroy -target="module.cognito_idp"
 Para remover um recurso do `terraform.tfstate` use o comando abaixo:
 
 ```sh
-terraform state rm "module.cluster_k8s.kubernetes_namespace_v1.rms"
+terraform state rm "module.cluster_k8s.kubernetes_namespace_v1.health-med"
 ```
 
 Isso é útil por exemplo quando o Terraform por algum motivo não é capaz de fazer a destruição de um recurso específico com `terraform destroy`, impedindo a destruição dos demais.

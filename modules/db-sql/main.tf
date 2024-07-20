@@ -2,15 +2,15 @@ provider "aws" {
   region = var.region
 }
 
-resource "aws_db_subnet_group" "rms" {
-  name       = "rms-prod-subnetgroup"
+resource "aws_db_subnet_group" "health-med" {
+  name       = "health-med-prod-subnetgroup"
   subnet_ids = var.public_subnets
 
   tags = var.tags
 }
 
 resource "aws_security_group" "rds" {
-  name   = "rms-prod-securitygroup"
+  name   = "health-med-prod-securitygroup"
   vpc_id = var.vpc_id
 
   ingress {
@@ -30,8 +30,8 @@ resource "aws_security_group" "rds" {
   tags = var.tags
 }
 
-resource "aws_db_parameter_group" "rms" {
-  name   = "rms-prod-paramgroup"
+resource "aws_db_parameter_group" "health-med" {
+  name   = "health-med-prod-paramgroup"
   family = "postgres15"
 
   parameter {
@@ -52,8 +52,8 @@ resource "aws_db_parameter_group" "rms" {
 # DB API Catálogo
 ################################################################################
 
-resource "aws_db_instance" "rms_catalogo" {
-  identifier                  = "rms-catalogo-prod-postgres-standalone"
+resource "aws_db_instance" "health-med_catalogo" {
+  identifier                  = "health-med-catalogo-prod-postgres-standalone"
   instance_class              = "db.t3.micro" # A instance_class do Free Tier é db.t3.micro
   allocated_storage           = 5
   db_name                     = "catalogo"
@@ -61,9 +61,9 @@ resource "aws_db_instance" "rms_catalogo" {
   engine_version              = "15.6"
   manage_master_user_password = true # Guarda o usuário e senha do banco de dados em um Secret no AWS Secrets Manager
   username                    = "postgres"
-  db_subnet_group_name        = aws_db_subnet_group.rms.name
+  db_subnet_group_name        = aws_db_subnet_group.health-med.name
   vpc_security_group_ids      = [aws_security_group.rds.id]
-  parameter_group_name        = aws_db_parameter_group.rms.name
+  parameter_group_name        = aws_db_parameter_group.health-med.name
   publicly_accessible         = true
   # skip_final_snapshot         = false
   skip_final_snapshot = true
@@ -74,8 +74,8 @@ resource "aws_db_instance" "rms_catalogo" {
 
 # Use the output of the `master_user_secret` object, which includes `secret_arn`,
 # to manage the rotation rules.
-resource "aws_secretsmanager_secret_rotation" "rms_catalogo" {
-  secret_id = aws_db_instance.rms_catalogo.master_user_secret[0].secret_arn
+resource "aws_secretsmanager_secret_rotation" "health-med_catalogo" {
+  secret_id = aws_db_instance.health-med_catalogo.master_user_secret[0].secret_arn
 
   rotation_rules {
     automatically_after_days = 7 # O valor padrão é 7 dias
@@ -86,8 +86,8 @@ resource "aws_secretsmanager_secret_rotation" "rms_catalogo" {
 # DB API Pedidos
 ################################################################################
 
-resource "aws_db_instance" "rms_pedidos" {
-  identifier                  = "rms-pedidos-prod-postgres-standalone"
+resource "aws_db_instance" "health-med_pedidos" {
+  identifier                  = "health-med-pedidos-prod-postgres-standalone"
   instance_class              = "db.t3.micro" # A instance_class do Free Tier é db.t3.micro
   allocated_storage           = 5
   db_name                     = "pedidos"
@@ -95,9 +95,9 @@ resource "aws_db_instance" "rms_pedidos" {
   engine_version              = "15.6"
   manage_master_user_password = true # Guarda o usuário e senha do banco de dados em um Secret no AWS Secrets Manager
   username                    = "postgres"
-  db_subnet_group_name        = aws_db_subnet_group.rms.name
+  db_subnet_group_name        = aws_db_subnet_group.health-med.name
   vpc_security_group_ids      = [aws_security_group.rds.id]
-  parameter_group_name        = aws_db_parameter_group.rms.name
+  parameter_group_name        = aws_db_parameter_group.health-med.name
   publicly_accessible         = true
   # skip_final_snapshot         = false
   skip_final_snapshot = true
@@ -109,8 +109,8 @@ resource "aws_db_instance" "rms_pedidos" {
 
 # Use the output of the `master_user_secret` object, which includes `secret_arn`,
 # to manage the rotation rules.
-resource "aws_secretsmanager_secret_rotation" "rms_pedidos" {
-  secret_id = aws_db_instance.rms_pedidos.master_user_secret[0].secret_arn
+resource "aws_secretsmanager_secret_rotation" "health-med_pedidos" {
+  secret_id = aws_db_instance.health-med_pedidos.master_user_secret[0].secret_arn
 
   rotation_rules {
     automatically_after_days = 7 # O valor padrão é 7 dias

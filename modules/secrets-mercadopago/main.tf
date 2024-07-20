@@ -7,7 +7,7 @@ locals {
 }
 
 resource "aws_secretsmanager_secret" "mercado_pago" {
-  name        = "prod/RMS/MercadoPago"
+  name        = "prod/HealthMed/MercadoPago"
   description = "Armazena as credenciais do Mercado Pago"
 
   # recovery_window_in_days = 7 # (Optional) Number of days that AWS Secrets Manager waits before it can delete the secret. This value can be 0 to force deletion without recovery or range from 7 to 30 days. The default value is 30.
@@ -22,7 +22,7 @@ variable "initial" {
   default = {
     # Inicializa as Keys, vazias, em branco
     # Por segurança, após o provisionamento do Secret preencha os valores abaixo manualmente no Console da AWS no link abaixo: 
-    # https://us-east-1.console.aws.amazon.com/secretsmanager/secret?name=prod/RMS/MercadoPago&region=us-east-1
+    # https://us-east-1.console.aws.amazon.com/secretsmanager/secret?name=prod/HealthMed/MercadoPago&region=us-east-1
     BASE_URL_API_MERCADOPAGO    = "https://api.mercadopago.com"
     ACCESS_TOKEN_MERCADOPAGO    = null
     USER_ID_MERCADOPAGO         = null
