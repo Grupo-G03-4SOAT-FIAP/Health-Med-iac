@@ -131,37 +131,13 @@ module "cluster_k8s" {
 # Container Registry
 ################################################################################
 
-# API Catálogo
+# API do Backend
 # ------------------------------
 
-module "registry_api_catalogo" {
-  source = "./modules/registry"
-
-  repository_name = "health-med-api-catalogo"
-
-  region = local.region
-  tags   = local.tags
-}
-
-# API de Pedidos
-# ------------------------------
-
-module "registry_api_pedidos" {
+module "registry_api" {
   source = "./modules/registry"
 
   repository_name = "health-med-api"
-
-  region = local.region
-  tags   = local.tags
-}
-
-# API de Pagamentos
-# ------------------------------
-
-module "registry_api_pagamentos" {
-  source = "./modules/registry"
-
-  repository_name = "health-med-api-pagamentos"
 
   region = local.region
   tags   = local.tags
@@ -188,55 +164,13 @@ module "fila-nova-cobranca" {
 # Cobrança gerada
 # ------------------------------
 
-module "fila-cobranca-gerada" {
+module "fila-exemplo" {
   source = "./modules/message-broker"
 
   region = local.region
 
-  name        = "cobranca-gerada"
-  secret_name = "prod/HealthMed/SQSCobrancaGerada"
-
-  tags = local.tags
-}
-
-# Falha na cobrança
-# ------------------------------
-
-module "fila-falha-cobranca" {
-  source = "./modules/message-broker"
-
-  region = local.region
-
-  name        = "falha-cobranca"
-  secret_name = "prod/HealthMed/SQSFalhaCobranca"
-
-  tags = local.tags
-}
-
-# Pagamento realizado
-# ------------------------------
-
-module "fila-pagamento-confirmado" {
-  source = "./modules/message-broker"
-
-  region = local.region
-
-  name        = "pagamento-confirmado"
-  secret_name = "prod/HealthMed/SQSPagamentoConfirmado"
-
-  tags = local.tags
-}
-
-# Falha pagamento
-# ------------------------------
-
-module "fila-falha-pagamento" {
-  source = "./modules/message-broker"
-
-  region = local.region
-
-  name        = "falha-pagamento"
-  secret_name = "prod/HealthMed/SQSFalhaPagamento"
+  name        = "fila-exemplo"
+  secret_name = "prod/HealthMed/SQSFilaExemplo"
 
   tags = local.tags
 }
@@ -250,7 +184,7 @@ module "fila-falha-pagamento" {
 
 resource "aws_iam_policy" "policy_sqs" {
   name        = "policy-sqs-health-med"
-  description = "Permite publicar e consumir mensagens nas filas do HealthMed no Amazon SQS"
+  description = "Permite publicar e consumir mensagens nas filas da Health&Med no Amazon SQS"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -263,11 +197,7 @@ resource "aws_iam_policy" "policy_sqs" {
           "sqs:DeleteMessage"
         ]
         Resource = [
-          module.fila-nova-cobranca.queue_arn,
-          module.fila-cobranca-gerada.queue_arn,
-          module.fila-falha-cobranca.queue_arn,
-          module.fila-pagamento-confirmado.queue_arn,
-          module.fila-falha-pagamento.queue_arn
+          module.fila-exemplo.queue_arn,
         ]
       },
     ]
@@ -294,7 +224,7 @@ resource "aws_iam_role_policy_attachment" "policy_sqs_to_role" {
 
 resource "aws_iam_policy" "policy_secret_sqs" {
   name        = "policy-secret-sqs-health-med"
-  description = "Permite acesso somente leitura aos Secrets das filas SQS do HealthMed no AWS Secrets Manager"
+  description = "Permite acesso somente leitura aos Secrets das filas SQS da Health&Med no AWS Secrets Manager"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -306,11 +236,7 @@ resource "aws_iam_policy" "policy_secret_sqs" {
           "secretsmanager:DescribeSecret"
         ]
         Resource = [
-          module.fila-nova-cobranca.secretsmanager_secret_arn,
-          module.fila-cobranca-gerada.secretsmanager_secret_arn,
-          module.fila-falha-cobranca.secretsmanager_secret_arn,
-          module.fila-pagamento-confirmado.secretsmanager_secret_arn,
-          module.fila-falha-pagamento.secretsmanager_secret_arn
+          module.fila-exemplo.secretsmanager_secret_arn
         ]
       },
     ]
@@ -336,66 +262,22 @@ resource "aws_iam_role_policy_attachment" "fila_secret_to_role" {
 # Secrets
 ################################################################################
 
-# DB API Catálogo
+# DB API do Backend
 # ------------------------------
 
-module "secrets_db_catalogo" {
+module "secrets_db_api" {
   source = "./modules/secrets-db"
 
-  secret_name = "prod/catalogo/Postgresql"
-  policy_name = "policy-secret-db-catalogo"
+  secret_name = "prod/HealthMed/Postgresql"
+  policy_name = "policy-secret-db-api"
 
   region = local.region
   tags   = local.tags
 }
 
-resource "aws_iam_role_policy_attachment" "db_catalogo_secret_to_role" {
+resource "aws_iam_role_policy_attachment" "db_api_secret_to_role" {
   role       = module.cluster_k8s.serviceaccount_role_name
-  policy_arn = module.secrets_db_catalogo.secretsmanager_secret_policy_arn
-
-  depends_on = [
-    module.cluster_k8s
-  ]
-}
-
-# DB API de Pedidos
-# ------------------------------
-
-module "secrets_db_pedidos" {
-  source = "./modules/secrets-db"
-
-  secret_name = "prod/pedidos/Postgresql"
-  policy_name = "policy-secret-db-pedidos"
-
-  region = local.region
-  tags   = local.tags
-}
-
-resource "aws_iam_role_policy_attachment" "db_pedidos_secret_to_role" {
-  role       = module.cluster_k8s.serviceaccount_role_name
-  policy_arn = module.secrets_db_pedidos.secretsmanager_secret_policy_arn
-
-  depends_on = [
-    module.cluster_k8s
-  ]
-}
-
-# DB API de Pagamentos
-# ------------------------------
-
-module "secrets_db_pagamentos" {
-  source = "./modules/secrets-db"
-
-  secret_name = "prod/pagamentos/Mongodb"
-  policy_name = "policy-secret-db-pagamentos"
-
-  region = local.region
-  tags   = local.tags
-}
-
-resource "aws_iam_role_policy_attachment" "db_pagamentos_secret_to_role" {
-  role       = module.cluster_k8s.serviceaccount_role_name
-  policy_arn = module.secrets_db_pagamentos.secretsmanager_secret_policy_arn
+  policy_arn = module.secrets_db_api.secretsmanager_secret_policy_arn
 
   depends_on = [
     module.cluster_k8s
