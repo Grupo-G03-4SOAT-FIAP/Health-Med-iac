@@ -405,20 +405,20 @@ resource "aws_iam_role_policy_attachment" "db_pagamentos_secret_to_role" {
 # Mercado Pago
 # ------------------------------
 
-module "secrets_mercadopago" {
-  source = "./modules/secrets-mercadopago"
+module "secrets_google_meet" {
+  source = "./modules/secrets-google-meet"
 
   region = local.region
   tags   = local.tags
 }
 
-resource "aws_iam_role_policy_attachment" "mercadopago_secret_to_role" {
+resource "aws_iam_role_policy_attachment" "google_meet_secret_to_role" {
   role       = module.cluster_k8s.serviceaccount_role_name
-  policy_arn = module.secrets_mercadopago.secretsmanager_secret_policy_arn
+  policy_arn = module.secrets_google_meet.secretsmanager_secret_policy_arn
 
   depends_on = [
     module.cluster_k8s,
-    module.secrets_mercadopago
+    module.secrets_google_meet
   ]
 }
 
