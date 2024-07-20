@@ -52,11 +52,11 @@ resource "aws_db_parameter_group" "health-med" {
 # DB API Backend
 ################################################################################
 
-resource "aws_db_instance" "health-med_pedidos" {
-  identifier                  = "health-med-pedidos-prod-postgres-standalone"
+resource "aws_db_instance" "health-med_api" {
+  identifier                  = "health-med-api-prod-postgres-standalone"
   instance_class              = "db.t3.micro" # A instance_class do Free Tier é db.t3.micro
   allocated_storage           = 5
-  db_name                     = "health-med-api"
+  db_name                     = "healthmed"
   engine                      = "postgres"
   engine_version              = "15.6"
   manage_master_user_password = true # Guarda o usuário e senha do banco de dados em um Secret no AWS Secrets Manager
@@ -75,8 +75,8 @@ resource "aws_db_instance" "health-med_pedidos" {
 
 # Use the output of the `master_user_secret` object, which includes `secret_arn`,
 # to manage the rotation rules.
-resource "aws_secretsmanager_secret_rotation" "health-med_pedidos" {
-  secret_id = aws_db_instance.health-med_pedidos.master_user_secret[0].secret_arn
+resource "aws_secretsmanager_secret_rotation" "health-med_api" {
+  secret_id = aws_db_instance.health-med_api.master_user_secret[0].secret_arn
 
   rotation_rules {
     automatically_after_days = 7 # O valor padrão é 7 dias
