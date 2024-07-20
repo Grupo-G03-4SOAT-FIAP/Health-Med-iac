@@ -9,7 +9,7 @@ on:
 env:
   TF_CLOUD_ORGANIZATION: "Grupo-G03-4SOAT-FIAP"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}" # Para obter um Token siga as instruções em https://developer.hashicorp.com/terraform/tutorials/automation/github-actions#set-up-terraform-cloud
-  TF_WORKSPACE: "rms-iac"
+  TF_WORKSPACE: "Health-Med-iac"
   CONFIG_DIRECTORY: "./"
 
 jobs:
