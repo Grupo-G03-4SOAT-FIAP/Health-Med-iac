@@ -12,7 +12,7 @@ variable "tags" {
 variable "secret_name" {
   description = "Friendly name of the new secret."
   type        = string
-  default     = "prod/RMS/Postgresql"
+  default     = "prod/HealthMed/Postgresql"
 }
 
 

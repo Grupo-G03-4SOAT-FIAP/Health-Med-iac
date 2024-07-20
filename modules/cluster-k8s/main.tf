@@ -29,7 +29,7 @@ provider "helm" {
 }
 
 locals {
-  name   = "rms-prd-k8scluster"
+  name   = "health-med-prd-k8scluster"
   region = var.region
   tags   = var.tags
 }
@@ -151,7 +151,7 @@ resource "helm_release" "secrets-provider-aws" {
 # Declare o(s) namespaces caso deseje que o Terraform exclua os Services, 
 # e consequentemente os Load Balancers atrelados a eles, ao fazer "terraform destroy"
 
-resource "kubernetes_namespace_v1" "rms" {
+resource "kubernetes_namespace_v1" "health-med" {
   metadata {
     name = var.app_namespace
   }

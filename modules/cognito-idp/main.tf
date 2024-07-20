@@ -6,8 +6,8 @@ locals {
   region = var.region
 }
 
-resource "aws_cognito_user_pool" "rms" {
-  name = "clientes-rms"
+resource "aws_cognito_user_pool" "health-med" {
+  name = "clientes-health-med"
 
   deletion_protection = "INACTIVE"
   mfa_configuration   = "OFF"
@@ -53,7 +53,7 @@ resource "aws_cognito_user_pool" "rms" {
 resource "aws_cognito_user_pool_client" "totem" {
   name = "Totem"
 
-  user_pool_id = aws_cognito_user_pool.rms.id
+  user_pool_id = aws_cognito_user_pool.health-med.id
 
   generate_secret     = false
   explicit_auth_flows = ["ALLOW_REFRESH_TOKEN_AUTH", "ALLOW_CUSTOM_AUTH"]
@@ -65,7 +65,7 @@ resource "aws_cognito_user_pool_client" "totem" {
 
 # Usuário anônimo para clientes que optarem por não se identificar
 resource "aws_cognito_user" "anonimo" {
-  user_pool_id = aws_cognito_user_pool.rms.id
+  user_pool_id = aws_cognito_user_pool.health-med.id
   username     = "00000000191" # CPF - 11 dígitos
 
   attributes = {

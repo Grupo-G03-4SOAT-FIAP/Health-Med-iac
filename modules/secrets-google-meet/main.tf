@@ -6,9 +6,9 @@ locals {
   region = var.region
 }
 
-resource "aws_secretsmanager_secret" "mercado_pago" {
-  name        = "prod/RMS/MercadoPago"
-  description = "Armazena as credenciais do Mercado Pago"
+resource "aws_secretsmanager_secret" "google_meet" {
+  name        = "prod/HealthMed/GoogleMeet"
+  description = "Armazena as credenciais do Google Meet"
 
   # recovery_window_in_days = 7 # (Optional) Number of days that AWS Secrets Manager waits before it can delete the secret. This value can be 0 to force deletion without recovery or range from 7 to 30 days. The default value is 30.
   recovery_window_in_days = 0
@@ -22,20 +22,15 @@ variable "initial" {
   default = {
     # Inicializa as Keys, vazias, em branco
     # Por segurança, após o provisionamento do Secret preencha os valores abaixo manualmente no Console da AWS no link abaixo: 
-    # https://us-east-1.console.aws.amazon.com/secretsmanager/secret?name=prod/RMS/MercadoPago&region=us-east-1
-    BASE_URL_API_MERCADOPAGO    = "https://api.mercadopago.com"
-    ACCESS_TOKEN_MERCADOPAGO    = null
-    USER_ID_MERCADOPAGO         = null
-    EXTERNAL_POS_ID_MERCADOPAGO = "CAIXA01"
-    WEBHOOK_URL_MERCADOPAGO     = null
-    IDEMPOTENCY_KEY_MERCADOPAGO = "a005986e-f97c-4274-91cf-b32d2672824f"
+    # https://us-east-1.console.aws.amazon.com/secretsmanager/secret?name=prod/HealthMed/google_meet&region=us-east-1
+    GOOGLE_MEET_API_KEY = null
   }
 
   type = map(string)
 }
 
 resource "aws_secretsmanager_secret_version" "version1" {
-  secret_id     = aws_secretsmanager_secret.mercado_pago.id
+  secret_id     = aws_secretsmanager_secret.google_meet.id
   secret_string = jsonencode(var.initial)
 }
 
@@ -43,9 +38,9 @@ resource "aws_secretsmanager_secret_version" "version1" {
 # Policies
 ################################################################################
 
-resource "aws_iam_policy" "policy_mercadopago" {
-  name        = "policy-secret-mercadopago"
-  description = "Permite acesso somente leitura ao Secret ${aws_secretsmanager_secret.mercado_pago.name} no AWS Secrets Manager"
+resource "aws_iam_policy" "policy_google_meet" {
+  name        = "policy-secret-google_meet"
+  description = "Permite acesso somente leitura ao Secret ${aws_secretsmanager_secret.google_meet.name} no AWS Secrets Manager"
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
@@ -58,7 +53,7 @@ resource "aws_iam_policy" "policy_mercadopago" {
           "secretsmanager:GetSecretValue",
           "secretsmanager:DescribeSecret"
         ]
-        Resource = aws_secretsmanager_secret.mercado_pago.arn
+        Resource = aws_secretsmanager_secret.google_meet.arn
       },
     ]
   })

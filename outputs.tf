@@ -18,34 +18,14 @@ output "cluster_serviceaccount_name" {
   value       = module.cluster_k8s.serviceaccount_name
 }
 
-output "repository_url_api_catalogo" {
+output "repository_url_api" {
   description = "The URL of the repository (in the form aws_account_id.dkr.ecr.region.amazonaws.com/repositoryName)."
-  value       = module.registry_api_catalogo.repository_url
+  value       = module.registry_api.repository_url
 }
 
-output "docker_login_api_catalogo" {
+output "docker_login" {
   description = "Log in to Amazon ECR: run the following command to authenticate Docker to the Amazon ECR registry"
-  value       = "aws ecr get-login-password --region ${local.region} | docker login --username AWS --password-stdin ${module.registry_api_catalogo.repository_url}"
-}
-
-output "repository_url_api_pedidos" {
-  description = "The URL of the repository (in the form aws_account_id.dkr.ecr.region.amazonaws.com/repositoryName)."
-  value       = module.registry_api_pedidos.repository_url
-}
-
-output "docker_login_api_pedidos" {
-  description = "Log in to Amazon ECR: run the following command to authenticate Docker to the Amazon ECR registry"
-  value       = "aws ecr get-login-password --region ${local.region} | docker login --username AWS --password-stdin ${module.registry_api_pedidos.repository_url}"
-}
-
-output "repository_url_api_pagamentos" {
-  description = "The URL of the repository (in the form aws_account_id.dkr.ecr.region.amazonaws.com/repositoryName)."
-  value       = module.registry_api_pagamentos.repository_url
-}
-
-output "docker_login_api_pagamentos" {
-  description = "Log in to Amazon ECR: run the following command to authenticate Docker to the Amazon ECR registry"
-  value       = "aws ecr get-login-password --region ${local.region} | docker login --username AWS --password-stdin ${module.registry_api_pagamentos.repository_url}"
+  value       = "aws ecr get-login-password --region ${local.region} | docker login --username AWS --password-stdin ${module.registry_api.repository_url}"
 }
 
 output "mercadopago_secret_name" {
