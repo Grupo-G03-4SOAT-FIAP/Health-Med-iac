@@ -1,14 +1,16 @@
-# rms-iac
-Contains the Infrastructure as code (IaC) of the [RMS project](https://github.com/Grupo-G03-4SOAT-FIAP/rms-bff).
+# Health&Med
+## Infrastructure as code (IaC)
 
-[![Terraform Apply](https://github.com/Grupo-G03-4SOAT-FIAP/rms-iac/actions/workflows/terraform-apply.yml/badge.svg)](https://github.com/Grupo-G03-4SOAT-FIAP/rms-iac/actions/workflows/terraform-apply.yml)
-[![Terraform Plan](https://github.com/Grupo-G03-4SOAT-FIAP/rms-iac/actions/workflows/terraform-plan.yml/badge.svg)](https://github.com/Grupo-G03-4SOAT-FIAP/rms-iac/actions/workflows/terraform-plan.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Grupo-G03-4SOAT-FIAP_rms-iac&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Grupo-G03-4SOAT-FIAP_rms-iac)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Grupo-G03-4SOAT-FIAP_rms-iac&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Grupo-G03-4SOAT-FIAP_rms-iac)
+[![Terraform Apply](https://github.com/Grupo-G03-4SOAT-FIAP/Health-Med-iac/actions/workflows/terraform-apply.yml/badge.svg)](https://github.com/Grupo-G03-4SOAT-FIAP/Health-Med-iac/actions/workflows/terraform-apply.yml)
+[![Terraform Plan](https://github.com/Grupo-G03-4SOAT-FIAP/Health-Med-iac/actions/workflows/terraform-plan.yml/badge.svg)](https://github.com/Grupo-G03-4SOAT-FIAP/Health-Med-iac/actions/workflows/terraform-plan.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Grupo-G03-4SOAT-FIAP_Health-Med-iac&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Grupo-G03-4SOAT-FIAP_Health-Med-iac)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Grupo-G03-4SOAT-FIAP_Health-Med-iac&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Grupo-G03-4SOAT-FIAP_Health-Med-iac)
+
+Projeto desenvolvido durante o Hackatown da Pós Tech em Software Architecture da FIAP.
 
 ![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white)
 
-[Ver no Terraform Cloud](https://app.terraform.io/app/Grupo-G03-4SOAT-FIAP/workspaces/rms-iac)↗️
+[Ver no Terraform Cloud](https://app.terraform.io/app/Grupo-G03-4SOAT-FIAP/workspaces/Health-Med-iac)↗️
 
 ## Pré-requisitos
 
@@ -79,12 +81,11 @@ Isso é útil por exemplo quando o Terraform por algum motivo não é capaz de f
 
 ## Projetos relacionados
 
-API de Pedidos\
-https://github.com/Grupo-G03-4SOAT-FIAP/rms-api-pedidos
+API do Backend\
+https://github.com/Grupo-G03-4SOAT-FIAP/Health-Med-api
 
 ## Requisitos
 
-*Terraform 1.7.3*\
-*aws-cli/2.15.10*
+*Terraform 1.7.3, aws-cli/2.15.10*
 
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=Grupo-G03-4SOAT-FIAP_rms-iac)
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=Grupo-G03-4SOAT-FIAP_Health-Med-iac)
