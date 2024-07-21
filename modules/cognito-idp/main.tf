@@ -7,7 +7,7 @@ locals {
 }
 
 resource "aws_cognito_user_pool" "health-med" {
-  name = "clientes-health-med"
+  name = "usuarios-health-med"
 
   deletion_protection = "INACTIVE"
   mfa_configuration   = "OFF"
