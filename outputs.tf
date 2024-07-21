@@ -28,11 +28,6 @@ output "docker_login" {
   value       = "aws ecr get-login-password --region ${local.region} | docker login --username AWS --password-stdin ${module.registry_api.repository_url}"
 }
 
-output "mercadopago_secret_name" {
-  description = "Friendly name of the new secret."
-  value       = module.secrets_cognito.secretsmanager_secret_name
-}
-
 output "cognito_user_pool_id" {
   description = "ID of the user pool."
   value       = module.cognito_idp.cognito_user_pool_id
