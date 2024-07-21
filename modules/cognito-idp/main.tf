@@ -24,6 +24,18 @@ resource "aws_cognito_user_pool" "health_med" {
     required            = true # Torna o atributo 'email' obrigatório ao se registrar
   }
 
+  schema {
+    name                     = "id"
+    attribute_data_type      = "String"
+    developer_only_attribute = false
+    mutable                  = true  # false for "sub"
+    required                 = false # true for "sub"
+    string_attribute_constraints {   # if it is a string
+      min_length = 0                 # 10 for "birthdate"
+      max_length = 2048              # 10 for "birthdate"
+    }
+  }
+
   alias_attributes = ["email", "phone_number"] # Permite o usuário logar também usando e-mail ou número de telefone
 
   username_configuration {
@@ -33,15 +45,6 @@ resource "aws_cognito_user_pool" "health_med" {
   admin_create_user_config {
     allow_admin_create_user_only = false
   }
-
-  # Customizing user pool workflows with Lambda triggers
-  # https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html
-  # lambda_config {
-  #   pre_sign_up                    = "" # (Optional) Pre-registration AWS Lambda trigger.
-  #   define_auth_challenge          = "" # (Optional) Defines the authentication challenge.
-  #   create_auth_challenge          = "" # (Optional) ARN of the lambda creating an authentication challenge.
-  #   verify_auth_challenge_response = "" # (Optional) Verifies the authentication challenge response.
-  # }
 
   tags = var.tags
 }
@@ -88,8 +91,9 @@ resource "aws_cognito_user" "medico_1" {
   password     = "Mudar@123"
 
   attributes = {
-    name  = "Arao Andrade Napoleao Lima"
-    email = "arao.lima@healthmed.com.br"
+    "custom:id" = "06f46f66-9f2e-4a27-976c-fa785936a765"
+    name        = "Arao Andrade Napoleao Lima"
+    email       = "arao.lima@healthmed.com.br"
   }
 }
 
@@ -107,8 +111,9 @@ resource "aws_cognito_user" "medico_2" {
   password     = "Mudar@123"
 
   attributes = {
-    name  = "Aron da Costa Telles"
-    email = "aron.telles@healthmed.com.br"
+    "custom:id" = "6bf977c6-f120-473d-8f00-97e2b5f8b18a"
+    name        = "Aron da Costa Telles"
+    email       = "aron.telles@healthmed.com.br"
   }
 }
 
@@ -126,8 +131,9 @@ resource "aws_cognito_user" "medico_3" {
   password     = "Mudar@123"
 
   attributes = {
-    name  = "Bruno Lopes dos Santos"
-    email = "bruno.santos@healthmed.com.br"
+    "custom:id" = "87299678-a39f-46ff-a849-79c35f561945"
+    name        = "Bruno Lopes dos Santos"
+    email       = "bruno.santos@healthmed.com.br"
   }
 }
 
@@ -145,8 +151,9 @@ resource "aws_cognito_user" "medico_4" {
   password     = "Mudar@123"
 
   attributes = {
-    name  = "Jarbas Camargo Barbosa de Barros"
-    email = "jarbas.barros@healthmed.com.br"
+    "custom:id" = "3fb50be0-b77b-4f9f-8288-adcccb79a234"
+    name        = "Jarbas Camargo Barbosa de Barros"
+    email       = "jarbas.barros@healthmed.com.br"
   }
 }
 
@@ -164,8 +171,9 @@ resource "aws_cognito_user" "medico_5" {
   password     = "Mudar@123"
 
   attributes = {
-    name  = "Jose Francisco Goncalves Filho"
-    email = "jose.filho@healthmed.com.br"
+    "custom:id" = "107622f8-3f6a-4506-b863-5a8740a94f8f"
+    name        = "Jose Francisco Goncalves Filho"
+    email       = "jose.filho@healthmed.com.br"
   }
 }
 
