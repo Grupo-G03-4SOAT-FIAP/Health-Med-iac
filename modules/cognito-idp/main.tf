@@ -55,7 +55,8 @@ resource "aws_cognito_user_pool_client" "client" {
 
   user_pool_id = aws_cognito_user_pool.health_med.id
 
-  generate_secret = false
+  generate_secret     = false
+  explicit_auth_flows = ["ALLOW_USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
 }
 
 ################################################################################
@@ -84,6 +85,7 @@ resource "aws_cognito_user_group" "pacientes" {
 resource "aws_cognito_user" "medico_1" {
   user_pool_id = aws_cognito_user_pool.health_med.id
   username     = "194528-SP" # CRM - 6 dígitos + sigla do estado
+  password     = "Mudar@123"
 
   attributes = {
     name  = "Arao Andrade Napoleao Lima"
@@ -102,6 +104,7 @@ resource "aws_cognito_user_in_group" "medico_1" {
 resource "aws_cognito_user" "medico_2" {
   user_pool_id = aws_cognito_user_pool.health_med.id
   username     = "202768-SP" # CRM - 6 dígitos + sigla do estado
+  password     = "Mudar@123"
 
   attributes = {
     name  = "Aron da Costa Telles"
@@ -120,6 +123,7 @@ resource "aws_cognito_user_in_group" "medico_2" {
 resource "aws_cognito_user" "medico_3" {
   user_pool_id = aws_cognito_user_pool.health_med.id
   username     = "127670-SP" # CRM - 6 dígitos + sigla do estado
+  password     = "Mudar@123"
 
   attributes = {
     name  = "Bruno Lopes dos Santos"
@@ -138,6 +142,7 @@ resource "aws_cognito_user_in_group" "medico_3" {
 resource "aws_cognito_user" "medico_4" {
   user_pool_id = aws_cognito_user_pool.health_med.id
   username     = "2364-SP" # CRM - 6 dígitos + sigla do estado
+  password     = "Mudar@123"
 
   attributes = {
     name  = "Jarbas Camargo Barbosa de Barros"
@@ -156,6 +161,7 @@ resource "aws_cognito_user_in_group" "medico_4" {
 resource "aws_cognito_user" "medico_5" {
   user_pool_id = aws_cognito_user_pool.health_med.id
   username     = "42296-SP" # CRM - 6 dígitos + sigla do estado
+  password     = "Mudar@123"
 
   attributes = {
     name  = "Jose Francisco Goncalves Filho"
@@ -175,6 +181,7 @@ resource "aws_cognito_user_in_group" "medico_5" {
 resource "aws_cognito_user" "paciente_1" {
   user_pool_id = aws_cognito_user_pool.health_med.id
   username     = "00000000191" # CPF - 11 dígitos
+  password     = "Mudar@123"
 
   attributes = {
     name  = "Fulano da Silva"
