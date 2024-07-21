@@ -6,7 +6,7 @@ locals {
   region = var.region
 }
 
-resource "aws_cognito_user_pool" "health-med" {
+resource "aws_cognito_user_pool" "health_med" {
   name = "usuarios-health-med"
 
   deletion_protection = "INACTIVE"
@@ -53,23 +53,66 @@ resource "aws_cognito_user_pool" "health-med" {
 resource "aws_cognito_user_pool_client" "totem" {
   name = "Totem"
 
-  user_pool_id = aws_cognito_user_pool.health-med.id
+  user_pool_id = aws_cognito_user_pool.health_med.id
 
   generate_secret     = false
   explicit_auth_flows = ["ALLOW_REFRESH_TOKEN_AUTH", "ALLOW_CUSTOM_AUTH"]
 }
 
 ################################################################################
+# Grupos
+################################################################################
+
+resource "aws_cognito_user_group" "medicos" {
+  name         = "medicos"
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  description  = "Médicos da Health&Med"
+}
+
+resource "aws_cognito_user_group" "pacientes" {
+  name         = "pacientes"
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  description  = "Pacientes da Health&Med"
+}
+
+################################################################################
 # Users
 ################################################################################
 
-# Usuário anônimo para clientes que optarem por não se identificar
-resource "aws_cognito_user" "anonimo" {
-  user_pool_id = aws_cognito_user_pool.health-med.id
+# Médicos
+# ------------------------------
+
+resource "aws_cognito_user" "medico_1" {
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  username     = "123456" # CRM - 6 dígitos + sigla do estado
+
+  attributes = {
+    name  = "Dr. Albert Feffer"
+    email = "albert.feffer@healthmed.com.br"
+  }
+}
+
+resource "aws_cognito_user_in_group" "medico_1" {
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  group_name   = aws_cognito_user_group.medicos.name
+  username     = aws_cognito_user.medico_1.username
+}
+
+# Pacientes
+# ------------------------------
+
+resource "aws_cognito_user" "paciente_1" {
+  user_pool_id = aws_cognito_user_pool.health_med.id
   username     = "00000000191" # CPF - 11 dígitos
 
   attributes = {
-    name  = "Cliente Anônimo"
-    email = "cliente@anonimo.com"
+    name  = "Fulano da Silva"
+    email = "fulano.silva@gmail.com"
   }
+}
+
+resource "aws_cognito_user_in_group" "paciente_1" {
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  group_name   = aws_cognito_user_group.pacientes.name
+  username     = aws_cognito_user.paciente_1.username
 }
