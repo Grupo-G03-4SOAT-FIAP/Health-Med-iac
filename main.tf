@@ -270,7 +270,7 @@ resource "aws_iam_role_policy_attachment" "db_api_secret_to_role" {
   ]
 }
 
-# Mercado Pago
+# Google Meet
 # ------------------------------
 
 module "secrets_google_meet" {
