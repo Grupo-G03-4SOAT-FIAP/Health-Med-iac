@@ -84,11 +84,11 @@ resource "aws_cognito_user_group" "pacientes" {
 
 resource "aws_cognito_user" "medico_1" {
   user_pool_id = aws_cognito_user_pool.health_med.id
-  username     = "123456" # CRM - 6 dígitos + sigla do estado
+  username     = "194528-SP" # CRM - 6 dígitos + sigla do estado
 
   attributes = {
-    name  = "Dr. Albert Feffer"
-    email = "albert.feffer@healthmed.com.br"
+    name  = "Arao Andrade Napoleao Lima"
+    email = "arao.lima@healthmed.com.br"
   }
 }
 
@@ -96,6 +96,78 @@ resource "aws_cognito_user_in_group" "medico_1" {
   user_pool_id = aws_cognito_user_pool.health_med.id
   group_name   = aws_cognito_user_group.medicos.name
   username     = aws_cognito_user.medico_1.username
+}
+
+# ----------
+
+resource "aws_cognito_user" "medico_2" {
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  username     = "202768-SP" # CRM - 6 dígitos + sigla do estado
+
+  attributes = {
+    name  = "Aron da Costa Telles"
+    email = "aron.telles@healthmed.com.br"
+  }
+}
+
+resource "aws_cognito_user_in_group" "medico_2" {
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  group_name   = aws_cognito_user_group.medicos.name
+  username     = aws_cognito_user.medico_2.username
+}
+
+# ----------
+
+resource "aws_cognito_user" "medico_3" {
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  username     = "127670-SP" # CRM - 6 dígitos + sigla do estado
+
+  attributes = {
+    name  = "Bruno Lopes dos Santos"
+    email = "bruno.santos@healthmed.com.br"
+  }
+}
+
+resource "aws_cognito_user_in_group" "medico_3" {
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  group_name   = aws_cognito_user_group.medicos.name
+  username     = aws_cognito_user.medico_3.username
+}
+
+# ----------
+
+resource "aws_cognito_user" "medico_4" {
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  username     = "2364-SP" # CRM - 6 dígitos + sigla do estado
+
+  attributes = {
+    name  = "Jarbas Camargo Barbosa de Barros"
+    email = "jarbas.barros@healthmed.com.br"
+  }
+}
+
+resource "aws_cognito_user_in_group" "medico_4" {
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  group_name   = aws_cognito_user_group.medicos.name
+  username     = aws_cognito_user.medico_4.username
+}
+
+# ----------
+
+resource "aws_cognito_user" "medico_5" {
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  username     = "42296-SP" # CRM - 6 dígitos + sigla do estado
+
+  attributes = {
+    name  = "Jose Francisco Goncalves Filho"
+    email = "jose.filho@healthmed.com.br"
+  }
+}
+
+resource "aws_cognito_user_in_group" "medico_5" {
+  user_pool_id = aws_cognito_user_pool.health_med.id
+  group_name   = aws_cognito_user_group.medicos.name
+  username     = aws_cognito_user.medico_5.username
 }
 
 # Pacientes
