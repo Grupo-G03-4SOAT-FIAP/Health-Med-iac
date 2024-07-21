@@ -50,13 +50,12 @@ resource "aws_cognito_user_pool" "health_med" {
 # Cognito User Pool Client
 ################################################################################
 
-resource "aws_cognito_user_pool_client" "totem" {
-  name = "Totem"
+resource "aws_cognito_user_pool_client" "client" {
+  name = "client"
 
   user_pool_id = aws_cognito_user_pool.health_med.id
 
-  generate_secret     = false
-  explicit_auth_flows = ["ALLOW_REFRESH_TOKEN_AUTH", "ALLOW_CUSTOM_AUTH"]
+  generate_secret = false
 }
 
 ################################################################################
