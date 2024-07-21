@@ -147,21 +147,7 @@ module "registry_api" {
 # Message Broker
 ################################################################################
 
-# Nova cobrança
-# ------------------------------
-
-module "fila-nova-cobranca" {
-  source = "./modules/message-broker"
-
-  region = local.region
-
-  name        = "nova-cobranca"
-  secret_name = "prod/HealthMed/SQSNovaCobranca"
-
-  tags = local.tags
-}
-
-# Cobrança gerada
+# Fila de exemplo
 # ------------------------------
 
 module "fila-exemplo" {
