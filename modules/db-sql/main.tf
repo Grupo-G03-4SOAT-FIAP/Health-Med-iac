@@ -56,7 +56,7 @@ resource "aws_db_instance" "health-med_api" {
   identifier                  = "health-med-api-prod-postgres-standalone"
   instance_class              = "db.t3.micro" # A instance_class do Free Tier é db.t3.micro
   allocated_storage           = 5
-  db_name                     = "healthmed"
+  db_name                     = "health_med"
   engine                      = "postgres"
   engine_version              = "15.6"
   manage_master_user_password = true # Guarda o usuário e senha do banco de dados em um Secret no AWS Secrets Manager
