@@ -86,6 +86,9 @@ Isso é útil por exemplo quando o Terraform por algum motivo não é capaz de f
 API do Backend\
 https://github.com/Grupo-G03-4SOAT-FIAP/Health-Med-api
 
+Lambda function da Teleconsulta\
+https://github.com/Grupo-G03-4SOAT-FIAP/Health-Med-teleconsulta
+
 ## Requisitos
 
 *Terraform 1.7.3, aws-cli/2.15.10*
