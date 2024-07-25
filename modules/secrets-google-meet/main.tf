@@ -23,7 +23,7 @@ variable "initial" {
     # Inicializa as Keys, vazias, em branco
     # Por segurança, após o provisionamento do Secret preencha os valores abaixo manualmente no Console da AWS no link abaixo: 
     # https://us-east-1.console.aws.amazon.com/secretsmanager/secret?name=prod/HealthMed/google_meet&region=us-east-1
-    GOOGLE_MEET_API_KEY = null
+    GOOGLE_AUTHORIZED_USER_CREDS = ""
   }
 
   type = map(string)
