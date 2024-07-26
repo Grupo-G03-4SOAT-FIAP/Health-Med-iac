@@ -1,6 +1,6 @@
 resource "aws_api_gateway_rest_api" "minha_api" {
   name        = "health-med-bff"
-  description = "BFF do Restaurant Management System"
+  description = "BFF da Health&Med"
 }
 
 # resource "aws_api_gateway_authorizer" "my_authorizer" {
